@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chat</title>
+    </head>
+<body>
+    <div id="chatContainer">
+        <div id="chatBox"></div>
+        <div>
+            <input type="text" id="messageInput" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Load messages from localStorage on page load
+        document.addEventListener('DOMContentLoaded', loadMessages);
+
+        function loadMessages() {
+            let chatBox = document.getElementById('chatBox');
+            let messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+            chatBox.innerHTML = ''; // Clear the chat box
+            messages.forEach(message => {
+                let messageElement = document.createElement('div');
+                messageElement.textContent = message;
+                chatBox.appendChild(messageElement);
+            });
+            // Scroll to the bottom of the chat
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function sendMessage() {
+            let messageInput = document.getElementById('messageInput');
+            let message = messageInput.value.trim();
+            if (message) {
+                let messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+
+                // Check if there are 50 or more messages, and clear if necessary
+                if (messages.length >= 50) {
+                    clearMessages(); // Clear all messages if the limit is reached
+                    messages = []; // Reset the messages array
+                }
+
+                // Add the new message to the array
+                messages.push(message);
+                localStorage.setItem('chatMessages', JSON.stringify(messages));
+
+                // Add the message to the chat box
+                let chatBox = document.getElementById('chatBox');
+                let messageElement = document.createElement('div');
+                messageElement.textContent = message;
+                chatBox.appendChild(messageElement);
+
+                // Clear the input field and scroll to the bottom
+                messageInput.value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        function clearMessages() {
+            // Clear the messages from localStorage
+            localStorage.removeItem('chatMessages');
+
+            // Clear the chat box
+            let chatBox = document.getElementById('chatBox');
+            chatBox.innerHTML = '';
+        }
+
+        // Expose the clearMessages function globally to be accessed from the console
+        window.clearMessages = clearMessages;
+    </script>
+</body>
+</html>

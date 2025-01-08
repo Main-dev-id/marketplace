@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Online Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        main {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+        }
+        .product-list, .basket {
+            width: 45%;
+            padding: 1rem;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        .product {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.5rem;
+        }
+        .basket ul {
+            list-style: none;
+            padding: 0;
+        }
+        .basket li {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Simple Online Shop</h1>
+    </header>
+    <main>
+        <div class="product-list">
+            <h2>Products</h2>
+            <div class="product" data-name="Chair" data-price="30">
+                <span>Chair - $30</span>
+                <button onclick="addToBasket('Chair', 30)">Add to Basket</button>
+            </div>
+            <div class="product" data-name="Table" data-price="50">
+                <span>Table - $50</span>
+                <button onclick="addToBasket('Table', 50)">Add to Basket</button>
+            </div>
+            <div class="product" data-name="Lamp" data-price="20">
+                <span>Lamp - $20</span>
+                <button onclick="addToBasket('Lamp', 20)">Add to Basket</button>
+            </div>
+        </div>
+        <div class="basket">
+            <h2>Basket</h2>
+            <ul id="basket-items">
+                <!-- Items will be dynamically added here -->
+            </ul>
+            <h3>Total: $<span id="total-price">0</span></h3>
+        </div>
+    </main>
+    <script>
+        let basket = [];
+        let totalPrice = 0;
+
+        function addToBasket(name, price) {
+            basket.push({ name, price });
+            totalPrice += price;
+            updateBasket();
+        }
+
+        function updateBasket() {
+            const basketItems = document.getElementById('basket-items');
+            const totalPriceElem = document.getElementById('total-price');
+
+            basketItems.innerHTML = '';
+            basket.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} - $${item.price}`;
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeFromBasket(index);
+                li.appendChild(removeButton);
+                basketItems.appendChild(li);
+            });
+
+            totalPriceElem.textContent = totalPrice;
+        }
+
+        function removeFromBasket(index) {
+            totalPrice -= basket[index].price;
+            basket.splice(index, 1);
+            updateBasket();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <input type="number" id="num1" class="test test2">
+    <input type="number" id="num2" >
+    <br>
+    <button onclick="calculate_plus()">Calculate +</button>
+    <button onclick="calculate_minus()">Calculate -</button>
+    <button onclick="calculate_myltiply()">Calculate *</button>
+    <button onclick="calculate_divide()">Calculate /</button>
+    <h2>Result: <span id="result">default</span></h2>
+    <script>
+        function calculate_plus() {
+            console.log('DNL');
+            console.log(document.getElementById('num1').value);
+            let num1 = parseFloat(document.getElementById('num1').value) || 0;
+            let num2 = parseFloat(document.getElementById('num2').value) || 0;
+            let result;
+            result = num1 + num2;
+            document.getElementById('result').innerText = result;
+        }
+        console.log('DNL page load')
+
+        function calculate_minus() {
+            console.log('DNL');
+            console.log(document.getElementById('num1').value);
+            let num1 = parseFloat(document.getElementById('num1').value) || 0;
+            let num2 = parseFloat(document.getElementById('num2').value) || 0;
+            let result;
+            result = num1 - num2;
+            document.getElementById('result').innerText = result;
+        }
+        console.log('DNL page load')
+
+        function calculate_myltiply() {
+            console.log('DNL');
+            console.log(document.getElementById('num1').value);
+            let num1 = parseFloat(document.getElementById('num1').value) || 0;
+            let num2 = parseFloat(document.getElementById('num2').value) || 0;
+            let result;
+            result = num1 * num2;
+            document.getElementById('result').innerText = result;
+        }
+        console.log('DNL page load')
+
+        function calculate_divide() {
+            console.log('DNL');
+            console.log(document.getElementById('num1').value);
+            let num1 = parseFloat(document.getElementById('num1').value) || 0;
+            let num2 = parseFloat(document.getElementById('num2').value) || 0;
+            let result;
+            result = num1 / num2;
+            document.getElementById('result').innerText = result;
+        }
+        console.log('DNL page load')
+    </script>
+</body>
+</html>
